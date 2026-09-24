@@ -1,0 +1,26 @@
+{
+  "name": "ARIX - Comic & Novel Reader",
+  "short_name": "ARIX",
+  "description": "ARIX Comic and Novel Reading App",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#070b14",
+  "background_color": "#070b14",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "assets/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
