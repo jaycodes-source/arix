@@ -1809,3 +1809,204 @@ img {
     padding: 12px;
   }
 }
+
+/* =========================================================
+   ARIX — STRONG MOBILE BREAKPOINT
+   Fixes phones/tablets where the viewport is reported wider
+========================================================= */
+
+@media screen and (max-width: 900px) {
+
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* HEADER */
+
+  .topbar-inner {
+    width: 100%;
+    padding: 0 14px;
+    height: 64px;
+  }
+
+  .desktop-nav {
+    display: none !important;
+  }
+
+  .mobile-menu-button {
+    display: flex !important;
+  }
+
+  .header-actions {
+    margin-left: auto;
+  }
+
+
+  /* HERO */
+
+  .hero-section {
+    width: calc(100% - 32px);
+
+    min-height: auto;
+
+    padding: 65px 0 50px;
+
+    display: flex !important;
+    flex-direction: column !important;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 45px;
+
+    text-align: center;
+  }
+
+  .hero-content {
+    width: 100%;
+    max-width: 550px;
+  }
+
+  .hero-content h1 {
+    font-size: clamp(38px, 9vw, 58px);
+    line-height: 1.02;
+  }
+
+  .hero-content p {
+    margin-left: auto;
+    margin-right: auto;
+
+    max-width: 450px;
+  }
+
+  .hero-actions {
+    justify-content: center;
+  }
+
+  .hero-visual {
+    width: 100%;
+  }
+
+  .hero-card {
+    width: min(270px, 70vw);
+    margin: auto;
+  }
+
+
+  /* SECTIONS */
+
+  .content-section {
+    width: calc(100% - 32px);
+    margin: 70px auto;
+  }
+
+
+  /* STORIES */
+
+  .story-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr)) !important;
+
+    gap: 14px;
+  }
+
+  .story-card {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .story-info h3 {
+    font-size: 13px;
+  }
+
+
+  /* GENRES */
+
+  .genre-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr)) !important;
+
+    gap: 12px;
+  }
+
+
+  /* UPDATES */
+
+  .updates-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+
+  /* MOBILE BOTTOM NAV */
+
+  .mobile-bottom-nav {
+    display: flex !important;
+  }
+
+
+  /* FOOTER */
+
+  .site-footer {
+    width: calc(100% - 32px);
+    padding-bottom: 100px;
+  }
+}
+
+
+/* =========================================================
+   SMALL PHONE
+========================================================= */
+
+@media screen and (max-width: 500px) {
+
+  .topbar-inner {
+    padding: 0 10px;
+  }
+
+  .hero-section {
+    width: calc(100% - 24px);
+    padding-top: 50px;
+  }
+
+  .hero-content h1 {
+    font-size: 40px;
+  }
+
+  .hero-content p {
+    font-size: 13px;
+  }
+
+  .hero-card {
+    width: 230px;
+  }
+
+  .content-section {
+    width: calc(100% - 24px);
+  }
+
+  .story-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr)) !important;
+
+    gap: 10px;
+  }
+
+  .story-cover {
+    aspect-ratio: 0.72;
+  }
+
+  .story-info {
+    padding: 10px;
+  }
+
+  .story-info h3 {
+    font-size: 12px;
+  }
+
+  .genre-card {
+    min-height: 120px;
+  }
+}
