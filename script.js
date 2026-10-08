@@ -543,4 +543,7 @@
       const percentage =
         total <= 1
           ? 100
-          : ((page + 
+          : ((page +
+ 
+  initIntro();
+})();
