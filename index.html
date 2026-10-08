@@ -770,6 +770,17 @@
  
  <script src="data.js"></script>
 <script src="script.js"></script>
+<script>
+setTimeout(function() {
+  var intro = document.getElementById('intro-screen') || document.getElementById('intro') || document.querySelector('.intro') || document.querySelector('.intro-screen') || document.querySelector('[class*="intro"]');
+  if(intro) {
+    intro.style.transition = 'opacity 0.6s';
+    intro.style.opacity = '0';
+    setTimeout(function(){ intro.style.display = 'none'; intro.remove(); }, 600);
+  }
+  document.body.style.overflow = 'auto';
+}, 4500);
+</script>
 
 </body>
 </html>
