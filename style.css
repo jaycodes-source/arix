@@ -1455,3 +1455,357 @@ img {
 /* =========================================================
    NOTIFICATIONS
 ==========================================
+/* =========================================================
+   ARIX — MOBILE BALANCE & RESPONSIVE FIX
+========================================================= */
+
+@media (max-width: 700px) {
+
+  html,
+  body {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  /* ---------- HEADER ---------- */
+
+  .topbar-inner {
+    width: 100%;
+    height: 64px;
+    padding: 0 14px;
+    gap: 8px;
+  }
+
+  .brand {
+    flex-shrink: 0;
+  }
+
+  .brand-logo {
+    width: 42px;
+    height: 42px;
+  }
+
+  .header-actions {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+
+  .icon-button,
+  .profile-button,
+  .mobile-menu-button {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+  }
+
+  /* ---------- HERO ---------- */
+
+  .hero-section {
+    width: calc(100% - 32px);
+
+    min-height: auto;
+
+    padding-top: 65px;
+    padding-bottom: 45px;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 42px;
+
+    text-align: center;
+  }
+
+  .hero-content {
+    width: 100%;
+    max-width: 520px;
+  }
+
+  .hero-content h1 {
+    margin-top: 12px;
+
+    font-size: clamp(38px, 11vw, 54px);
+
+    line-height: 1.02;
+
+    letter-spacing: -0.045em;
+  }
+
+  .hero-content p {
+    width: 100%;
+    max-width: 430px;
+
+    margin: 20px auto 0;
+
+    font-size: 14px;
+    line-height: 1.65;
+  }
+
+  .hero-actions {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+
+    gap: 9px;
+
+    margin-top: 25px;
+  }
+
+  .primary-button,
+  .secondary-button {
+    padding: 12px 15px;
+
+    font-size: 11px;
+  }
+
+  .hero-visual {
+    width: 100%;
+  }
+
+  .hero-card {
+    width: min(245px, 68vw);
+
+    margin: auto;
+
+    border-radius: 20px;
+  }
+
+  /* ---------- SECTIONS ---------- */
+
+  .content-section {
+    width: calc(100% - 32px);
+
+    margin: 65px auto;
+  }
+
+  .section-heading {
+    margin-bottom: 20px;
+  }
+
+  .section-heading h2 {
+    font-size: 27px;
+  }
+
+  /* ---------- STORY CARDS ---------- */
+
+  .story-grid {
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 12px;
+  }
+
+  .story-card {
+    width: 100%;
+    min-width: 0;
+
+    border-radius: 14px;
+  }
+
+  .story-cover {
+    width: 100%;
+  }
+
+  .story-info {
+    padding: 12px;
+  }
+
+  .story-info h3 {
+    font-size: 13px;
+    line-height: 1.35;
+  }
+
+  .story-meta {
+    font-size: 10px;
+  }
+
+  .story-rating {
+    font-size: 11px;
+  }
+
+  .story-actions {
+    margin-top: 11px;
+  }
+
+  .read-story {
+    min-width: 0;
+    padding: 9px 5px;
+
+    font-size: 10px;
+  }
+
+  .bookmark-story {
+    width: 34px;
+    flex-shrink: 0;
+  }
+
+  /* ---------- GENRES ---------- */
+
+  .genre-grid {
+    display: grid;
+
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 10px;
+  }
+
+  .genre-card {
+    min-height: 125px;
+
+    padding: 15px;
+
+    border-radius: 14px;
+  }
+
+  .genre-card span {
+    font-size: 23px;
+  }
+
+  .genre-card strong {
+    margin-top: 14px;
+
+    font-size: 13px;
+  }
+
+  .genre-card small {
+    font-size: 9px;
+  }
+
+  /* ---------- SEARCH ---------- */
+
+  .search-inner {
+    width: calc(100% - 28px);
+
+    padding: 14px 0;
+  }
+
+  #searchInput {
+    padding: 13px 14px;
+
+    font-size: 13px;
+  }
+
+  /* ---------- READER ---------- */
+
+  .reader-content {
+    gap: 5px;
+
+    padding: 8px;
+  }
+
+  .reader-pages {
+    width: 100%;
+    max-width: none;
+  }
+
+  .reader-arrow {
+    width: 34px;
+    height: 34px;
+
+    font-size: 22px;
+  }
+
+  /* ---------- SIDE PANELS ---------- */
+
+  .side-panel {
+    width: min(360px, 92vw);
+
+    padding: 20px;
+  }
+
+  /* ---------- MOBILE NAV ---------- */
+
+  .mobile-bottom-nav {
+    height: 62px;
+
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .mobile-bottom-nav a {
+    min-width: 55px;
+
+    font-size: 17px;
+  }
+
+  .mobile-bottom-nav small {
+    font-size: 8px;
+  }
+
+  /* ---------- FOOTER ---------- */
+
+  .site-footer {
+    width: calc(100% - 32px);
+
+    margin-top: 70px;
+
+    padding-bottom: 95px;
+  }
+}
+
+
+/* =========================================================
+   VERY SMALL PHONES
+========================================================= */
+
+@media (max-width: 360px) {
+
+  .topbar-inner {
+    padding: 0 9px;
+  }
+
+  .header-actions {
+    gap: 4px;
+  }
+
+  .icon-button,
+  .profile-button,
+  .mobile-menu-button {
+    width: 33px;
+    height: 33px;
+  }
+
+  .hero-section {
+    width: calc(100% - 24px);
+  }
+
+  .hero-content h1 {
+    font-size: 36px;
+  }
+
+  .hero-content p {
+    font-size: 13px;
+  }
+
+  .content-section {
+    width: calc(100% - 24px);
+  }
+
+  .story-grid {
+    gap: 8px;
+  }
+
+  .story-info {
+    padding: 9px;
+  }
+
+  .story-info h3 {
+    font-size: 12px;
+  }
+
+  .genre-card {
+    min-height: 115px;
+    padding: 12px;
+  }
+}
