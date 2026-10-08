@@ -534,16 +534,15 @@
   }
 
   function updateReaderUI(page, total) {
-    if (readerPageCounter) {
-      readerPageCounter.textContent =
-        `${page + 1} / ${total}`;
-    }
+  if (readerPageCounter) {
+    readerPageCounter.textContent = `${page + 1} / ${total}`;
+  }
+  if (readerProgressBar) {
+    const percentage = total <= 1 ? 100 : ((page + 1) / total) * 100;
+    readerProgressBar.style.width = percentage + '%';
+  }
+}
 
-    if (readerProgressBar) {
-      const percentage =
-        total <= 1
-          ? 100
-          : ((page +
- 
   initIntro();
+
 })();
