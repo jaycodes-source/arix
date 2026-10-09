@@ -2066,3 +2066,90 @@ body.light-theme .primary-button {
 /* =========================================================
    END OF ARIX CSS
 ========================================================= */
+
+/* ARIX MOBILE VISIBILITY FIX */
+
+.genre-card {
+  color: #f5f7fa !important;
+  background: linear-gradient(145deg, #202630, #11141a) !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.genre-card * {
+  color: #f5f7fa !important;
+}
+
+.genre-card span,
+.genre-card strong,
+.genre-card b {
+  color: #ffffff !important;
+  font-weight: 700;
+}
+
+.genre-card p {
+  color: #b7beca !important;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.section-header {
+  margin-bottom: 22px;
+}
+
+.section-title {
+  color: #f5f7fa !important;
+}
+
+.section-subtitle {
+  color: #a8adb8 !important;
+}
+
+.story-card,
+.continue-card {
+  color: #f5f7fa;
+}
+
+.story-card *,
+.continue-card * {
+  color: inherit;
+}
+
+.story-title,
+.continue-title {
+  color: #ffffff !important;
+}
+
+.story-meta,
+.story-description,
+.continue-chapter {
+  color: #a8adb8 !important;
+}
+
+.library-empty {
+  color: #a8adb8;
+}
+
+.library-empty strong {
+  color: #ffffff;
+}
+
+@media (max-width: 600px) {
+  .genre-card {
+    min-height: 105px;
+    padding: 12px;
+  }
+
+  .genre-card p {
+    font-size: 0.72rem;
+  }
+
+  .section {
+    padding: 38px 0;
+  }
+
+  .section-header {
+    margin-bottom: 16px;
+  }
+}
