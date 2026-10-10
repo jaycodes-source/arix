@@ -2208,7 +2208,7 @@ body::before {
       rgba(5, 8, 18, 0.62),
       rgba(5, 8, 18, 0.78)
     ),
-    url("assets/background.png") center center / cover no-repeat;
+    url("assets/background.jpg") center center / cover no-repeat;
 
   transform: translateZ(0);
 }
@@ -2228,7 +2228,7 @@ body::before {
       rgba(3, 7, 20, 0.18),
       rgba(3, 7, 20, 0.4)
     ),
-    url("assets/background.png") center / cover no-repeat;
+    url("assets/background.jpg") center / cover no-repeat;
 }
 
 /* Tablets */
