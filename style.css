@@ -2180,19 +2180,18 @@ body.light-theme .primary-button {
   }
 }
 
-/* =========================================
-   ARIX — FULL-SCREEN BACKGROUND
-   Desktop, tablet and mobile
-========================================= */
+
+/* ARIX FULL-PAGE BACKGROUND FIX */
 
 html {
   min-height: 100%;
-  background: #08090c;
+  background-color: #08090c;
 }
 
 body {
+  position: relative;
   min-height: 100vh;
-  background: transparent;
+  background: #08090c;
   isolation: isolate;
 }
 
@@ -2203,69 +2202,36 @@ body::before {
   z-index: -1;
   pointer-events: none;
 
-  background:
+  background-image:
     linear-gradient(
-      rgba(5, 8, 18, 0.62),
-      rgba(5, 8, 18, 0.78)
+      rgba(5, 8, 18, 0.35),
+      rgba(5, 8, 18, 0.60)
     ),
-    url("assets/background.jpg") center center / cover no-repeat;
+    url("./assets/background.jpg");
 
-  transform: translateZ(0);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .app {
-  background: transparent;
-  min-height: 100vh;
+  background: transparent !important;
 }
 
 .hero {
-  background: transparent;
+  background: transparent !important;
 }
 
-.hero-visual {
-  background:
-    linear-gradient(
-      rgba(3, 7, 20, 0.18),
-      rgba(3, 7, 20, 0.4)
-    ),
-    url("assets/background.jpg") center / cover no-repeat;
-}
-
-/* Tablets */
 @media (max-width: 900px) {
   body::before {
     background-position: 55% center;
   }
-
-  .hero-visual {
-    min-height: 360px;
-  }
 }
 
-/* Large and small phones */
 @media (max-width: 600px) {
   body::before {
     background-position: 58% center;
   }
-
-  .hero-visual {
-    min-height: 300px;
-    border-radius: 16px;
-  }
-
-  .hero-background {
-    min-height: 300px;
-  }
 }
 
-/* Very narrow phones */
-@media (max-width: 360px) {
-  body::before {
-    background-position: 60% center;
-  }
-
-  .hero-visual {
-    min-height: 250px;
-  }
-}
 
