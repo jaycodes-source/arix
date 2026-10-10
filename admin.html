@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080a10">
+<title>ARIX | Admin Dashboard</title>
+
+<style>
+:root {
+  --bg: #080a10;
+  --panel: #11141e;
+  --panel2: #171b28;
+  --border: #292e40;
+  --text: #f4f5fb;
+  --muted: #9299ae;
+  --accent: #8b7cff;
+  --accent2: #6654ef;
+  --danger: #ff5d73;
+  --success: #46d7a0;
+  --warning: #ffc76a;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 245px;
+  background: #0d1018;
+  border-right: 1px solid var(--border);
+  padding: 25px 16px;
+  flex-shrink: 0;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 10px 28px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 25px;
+}
+
+.brand img {
+  width: 42px;
+  height: 42px;
+  object-fit: contain;
+}
+
+.brand h1 {
+  font-size: 22px;
+  letter-spacing: 3px;
+}
+
+.brand p {
+  color: var(--muted);
+  font-size: 11px;
+  margin-top: 5px;
+}
+
+.nav-label {
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 2px;
+  padding: 0 12px;
+  margin: 20px 0 10px;
+}
+
+.nav-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  color: var(--muted);
+  padding: 13px 14px;
+  border-radius: 9px;
+  margin-bottom: 5px;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.nav-btn:hover,
+.nav-btn.active {
+  color: white;
+  background: var(--panel2);
+}
+
+.nav-btn.active {
+  border-left: 3px solid var(--accent);
+}
+
+.sidebar-bottom {
+  margin-top: 35px;
+  padding: 15px 12px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+.sidebar-bottom strong {
+  color: var(--success);
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+  padding: 28px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 30px;
+}
+
+.topbar h2 {
+  font-size: 25px;
+}
+
+.topbar p {
+  color: var(--muted);
+  margin-top: 7px;
+  font-size: 13px;
+}
+
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-badge {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 10px 13px;
+  border-radius: 9px;
+  font-size: 12px;
+}
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 17px;
+  margin-bottom: 25px;
+}
+
+.stat-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px;
+}
+
+.stat-card p {
+  color: var(--muted);
+  font-size: 13px;
+  margin-bottom: 16px;
+}
+
+.stat-card h3 {
+  font-size: 31px;
+}
+
+.stat-card small {
+  display: block;
+  color: var(--muted);
+  margin-top: 10px;
+  font-size: 11px;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 22px;
+  margin-bottom: 22px;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.panel-header h3 {
+  font-size: 17px;
+}
+
+.muted {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.btn {
+  border: 1px solid var(--border);
+  background: var(--panel2);
+  color: var(--text);
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.btn:hover {
+  filter: brightness(1.2);
+}
+
+.btn.primary {
+  background: var(--accent2);
+  border-color: var(--accent2);
+  color: white;
+}
+
+.btn.danger {
+  color: var(--danger);
+  border-color: #56303b;
+  background: #24151d;
+}
+
+.btn.success {
+  color: var(--success);
+  border-color: #245b49;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.form-wrap {
+  display: none;
+  margin-bottom: 22px;
+}
+
+.form-wrap.open {
+  display: block;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 17px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field.full {
+  grid-column: 1 / -1;
+}
+
+.field label {
+  color: #c8ccda;
+  font-size: 12px;
+}
+
+.field input,
+.field select,
+.field textarea,
+.search-input,
+.filter-select {
+  width: 100%;
+  color: var(--text);
+  background: #0b0e16;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 12px;
+  outline: none;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus,
+.search-input:focus,
+.filter-select:focus {
+  border-color: var(--accent);
+}
+
+.field textarea {
+  min-height: 105px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.field select option {
+  background: var(--panel);
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap;
+}
+.toolbar {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 0;
+}
+
+.filter-select {
+  width: 155px;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 650px;
+}
+
+th {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: normal;
+  text-align: left;
+  padding: 14px 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+td {
+  padding: 15px 12px;
+  border-bottom: 1px solid #222635;
+  font-size: 12px;
+}
+
+.story-title {
+  font-weight: bold;
+  font-size: 13px;
+  margin-bottom: 5px;
+}
+
+.story-description {
+  color: var(--muted);
+  font-size: 11px;
+  max-width: 260px;
+  line-height: 1.5;
+}
+
+.pill {
+  display: inline-block;
+  padding: 5px 8px;
+  border-radius: 20px;
+  font-size: 10px;
+  background: #25293a;
+  color: #c9cce0;
+}
+
+.pill.published {
+  background: #143329;
+  color: var(--success);
+}
+
+.pill.draft {
+  background: #3a2c17;
+  color: var(--warning);
+}
+
+.row-actions {
+  display: flex;
+  gap: 7px;
+}
+
+.row-actions .btn {
+  padding: 7px 9px;
+}
+
+.empty {
+  text-align: center;
+  padding: 35px 10px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.notice {
+  padding: 14px;
+  border: 1px solid var(--border);
+  background: #0b0e16;
+  border-radius: 9px;
+  margin-bottom: 20px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.7;
+}
+
+.notice strong {
+  color: var(--warning);
+}
+
+.announcement-preview {
+  margin-top: 18px;
+  padding: 16px;
+  border: 1px dashed var(--border);
+  border-radius: 9px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.toast {
+  position: fixed;
+  bottom: 22px;
+  right: 22px;
+  max-width: calc(100% - 44px);
+  background: #17251f;
+  border: 1px solid #2a644b;
+  color: var(--success);
+  padding: 13px 18px;
+  border-radius: 10px;
+  font-size: 13px;
+  display: none;
+  z-index: 100;
+}
+
+.toast.show {
+  display: block;
+}
+
+@media (max-width: 900px) {
+  .sidebar {
+    width: 205px;
+  }
+
+  .main {
+    padding: 20px;
+  }
+
+  .stats {
+    gap: 10px;
+  }
+
+  .stat-card {
+    padding: 16px;
+  }
+}
+
+@media (max-width: 650px) {
+  .layout {
+    display: block;
+  }
+
+  .sidebar {
+    width: 100%;
+    padding: 14px;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .brand {
+    padding: 0 5px 12px;
+    margin-bottom: 12px;
+  }
+
+  .brand img {
+    width: 34px;
+    height: 34px;
+  }
+
+  .brand h1 {
+    font-size: 19px;
+  }
+
+  .nav-label,
+  .sidebar-bottom {
+    display: none;
+  }
+
+  .nav-list {
+    display: flex;
+    gap: 5px;
+    overflow-x: auto;
+  }
+
+  .nav-btn {
+    width: auto;
+    white-space: nowrap;
+    margin: 0;
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+
+  .main {
+    padding: 18px 13px;
+  }
+
+  .topbar {
+    align-items: flex-start;
+  }
+
+  .topbar h2 {
+    font-size: 21px;
+  }
+
+  .admin-badge {
+    display: none;
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+  }
+
+  .stat-card h3 {
+    font-size: 25px;
+  }
+
+  .panel {
+    padding: 15px;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .field.full {
+    grid-column: auto;
+  }
+
+  .toolbar {
+    flex-direction: column;
+  }
+
+  .filter-select {
+    width: 100%;
+  }
+
+  .panel-header {
+    align-items: flex-start;
+  }
+
+  .panel-header h3 {
+    font-size: 15px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="assets/logo.png" alt="ARIX logo"
+           onerror="this.style.display='none'">
+      <div>
+        <h1>ARIX</h1>
+        <p>ADMINISTRATION</p>
+      </div>
+    </div>
+
+    <div class="nav-label">WORKSPACE</div>
+
+    <nav class="nav-list">
+      <button class="nav-btn active" data-page="overview">Overview</button>
+      <button class="nav-btn" data-page="stories">Stories</button>
+      <button class="nav-btn" data-page="chapters">Chapters</button>
+      <button class="nav-btn" data-page="announcements">Announcements</button>
+    </nav>
+
+    <div class="sidebar-bottom">
+      ARIX Management Panel<br>
+      Mode: <strong>DEMO</strong><br><br>
+      <a href="index.html">← Back to website</a>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <header class="topbar">
+      <div>
+        <h2 id="pageTitle">Overview</h2>
+        <p id="pageSubtitle">Manage your ARIX reading platform.</p>
+      </div>
+
+      <div class="top-actions">
+        <span class="admin-badge">Admin Dashboard</span>
+      </div>
+    </header>
+
+    <section class="page active" id="overview">
+
+      <div class="stats">
+        <div class="stat-card">
+          <p>Total Stories</p>
+          <h3 id="totalStories">0</h3>
+          <small>Stories saved in this browser</small>
+        </div>
+
+        <div class="stat-card">
+          <p>Published Stories</p>
+          <h3 id="publishedStories">0</h3>
+          <small>Marked as published</small>
+        </div>
+
+        <div class="stat-card">
+          <p>Draft Stories</p>
+          <h3 id="draftStories">0</h3>
+          <small>Not yet published</small>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3>Welcome to ARIX</h3>
+          <button class="btn primary" id="overviewAddBtn">
+            + Add Story
+          </button>
+        </div>
+
+        <p class="muted">
+          Use this dashboard to manage your story records, edit details,
+          remove entries and prepare announcements.
+        </p>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3>Recent Stories</h3>
+          <button class="btn" data-goto="stories">View All</button>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>STORY</th>
+                <th>TYPE</th>
+                <th>STATUS</th>
+              </tr>
+            </thead>
+            <tbody id="recentRows"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="page" id="stories">
+
+      <div class="notice">
+        <strong>Demo mode:</strong>
+        Stories are saved in this browser only. Adding or editing a story
+        here does not upload chapters or publish the story to every visitor.
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <div>
+            <h3>Story Management</h3>
+            <p class="muted">Create, search, edit and remove story records.</p>
+          </div>
+
+          <button class="btn primary" id="addStoryBtn">
+            + Add Story
+          </button>
+        </div>
+      </div>
+
+      <div class="panel form-wrap" id="storyFormWrap">
+        <div class="panel-header">
+          <h3 id="formHeading">Add New Story</h3>
+        </div>
+
+        <form id="storyForm">
+
+          <div class="form-grid">
+
+            <div class="field full">
+              <label for="storyTitle">Story Title *</label>
+              <input id="storyTitle" type="text" maxlength="120"
+                     placeholder="Enter story title" required>
+            </div>
+
+            <div class="field">
+              <label for="storyType">Story Type *</label>
+              <select id="storyType" required>
+                <option value="Comic">Comic</option>
+                <option value="Novel">Novel</option>
+                <option value="Manga">Manga</option>
+                <option value="Manhwa">Manhwa</option>
+                <option value="Manhua">Manhua</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="storyGenre">Genre *</label>
+              <input id="storyGenre" type="text" maxlength="100"
+                     placeholder="Action, Fantasy, Romance..." required>
+            </div>
+
+            <div class="field">
+              <label for="storyStatus">Publication Status</label>
+              <select id="storyStatus">
+                <option value="Draft">Draft</option>
+                <option value="Published">Published</option>
+              </select>
+            </div>
+
+            <div class="field full">
+              <label for="storyDescription">Description</label>
+              <textarea id="storyDescription" maxlength="1500"
+                        placeholder="Write a short story description..."></textarea>
+            </div>
+
+          </div>
+
+          <div class="form-actions">
+            <button class="btn primary" type="submit" id="saveStoryBtn">
+              Save Demo Story
+            </button>
+
+            <button class="btn" type="button" id="cancelStoryBtn">
+              Cancel
+            </button>
+          </div>
+
+        </form>
+      </div>
+
+      <div class="panel">
+        <div class="toolbar">
+          <input class="search-input" id="storySearch" type="search"
+                 placeholder="Search stories by title or genre...">
+
+          <select class="filter-select" id="storyFilter">
+            <option value="All">All Statuses</option>
+            <option value="Published">Published</option>
+            <option value="Draft">Drafts</option>
+          </select>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>STORY</th>
+                <th>TYPE</th>
+                <th>GENRE</th>
+                <th>STATUS</th>
+                <th>ACTIONS</th>
+              </tr>
+            </thead>
+
+            <tbody id="storyRows"></tbody>
+          </table>
+        </div>
+
+        <p class="muted" id="storyCount" style="margin-top:15px"></p>
+      </div>
+
+    </section>
+    <section class="page" id="chapters">
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3>Chapter Management</h3>
+        </div>
+
+        <p class="muted">
+          Chapter uploads are not connected yet. This section is reserved
+          for adding chapter titles, chapter numbers and comic page images.
+        </p>
+
+        <div style="margin-top:20px">
+          <button class="btn primary" id="chapterInfoBtn">
+            View Setup Information
+          </button>
+        </div>
+
+        <div class="announcement-preview" id="chapterInfo" hidden>
+          The next stage is to connect story records to chapter records
+          and upload comic page images. This requires additional storage
+          and database functionality.
+        </div>
+      </div>
+
+    </section>
+
+    <section class="page" id="announcements">
+
+      <div class="panel">
+        <div class="panel-header">
+          <h3>Announcements</h3>
+        </div>
+
+        <div class="notice">
+          Announcement drafts are saved in this browser. They are not
+          automatically displayed on the public ARIX website.
+        </div>
+
+        <form id="announcementForm">
+
+          <div class="field">
+            <label for="announcementTitle">Announcement Title</label>
+            <input id="announcementTitle" type="text" maxlength="120"
+                   placeholder="Enter announcement title">
+          </div>
+
+          <div class="field" style="margin-top:17px">
+            <label for="announcementMessage">Announcement Message</label>
+            <textarea id="announcementMessage" maxlength="3000"
+                      placeholder="Write your announcement..."></textarea>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn primary" type="submit">
+              Save Draft
+            </button>
+
+            <button class="btn" type="button" id="clearAnnouncementBtn">
+              Clear
+            </button>
+          </div>
+
+        </form>
+
+        <div class="announcement-preview" id="announcementPreview">
+          Your saved announcement will appear here.
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+"use strict";
+
+/* ARIX ADMIN DASHBOARD */
+
+const $ = id => document.getElementById(id);
+
+const STORIES_KEY = "arix_admin_demo_stories_v1";
+const ANNOUNCEMENT_KEY = "arix_admin_announcement_v1";
+
+let stories = [];
+let editingId = null;
+let toastTimer = null;
+
+/* STORAGE */
+
+function loadStories() {
+  try {
+    const saved = localStorage.getItem(STORIES_KEY);
+
+    if (saved !== null) {
+      const parsed = JSON.parse(saved);
+
+      if (Array.isArray(parsed)) {
+        stories = parsed;
+        return;
+      }
+    }
+  } catch (error) {
+    console.error("Could not load stories:", error);
+  }
+
+  stories = [
+    {
+      id: 1,
+      title: "The Beginning",
+      type: "Comic",
+      genre: "Adventure",
+      description: "A young hero begins a remarkable journey.",
+      status: "Published"
+    },
+    {
+      id: 2,
+      title: "Kingdom of Shadows",
+      type: "Novel",
+      genre: "Fantasy",
+      description: "A mysterious kingdom hides an ancient secret.",
+      status: "Draft"
+    },
+    {
+      id: 3,
+      title: "Beyond the Stars",
+      type: "Manga",
+      genre: "Sci-Fi",
+      description: "An adventure across an unknown universe.",
+      status: "Published"
+    }
+  ];
+
+  saveStories();
+}
+
+function saveStories() {
+  try {
+    localStorage.setItem(STORIES_KEY, JSON.stringify(stories));
+    return true;
+  } catch (error) {
+    console.error("Could not save stories:", error);
+    showToast("Could not save. Browser storage may be full.");
+    return false;
+  }
+}
+
+function loadAnnouncement() {
+  try {
+    const saved = localStorage.getItem(ANNOUNCEMENT_KEY);
+
+    if (!saved) return;
+
+    const data = JSON.parse(saved);
+
+    $("announcementTitle").value = data.title || "";
+    $("announcementMessage").value = data.message || "";
+
+    updateAnnouncementPreview();
+  } catch (error) {
+    console.error("Could not load announcement:", error);
+  }
+}
+
+/* HELPERS */
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, character => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[character]);
+}
+
+function showToast(message) {
+  const toast = $("toast");
+
+  toast.textContent = message;
+  toast.classList.add("show");
+
+  clearTimeout(toastTimer);
+
+  toastTimer = setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2800);
+}
+
+function getStoryById(id) {
+  return stories.find(
+    story => Number(story.id) === Number(id)
+  );
+}
+
+function statusClass(status) {
+  return status === "Published" ? "published" : "draft";
+}
+
+/* NAVIGATION */
+
+const pageDetails = {
+  overview: {
+    title: "Overview",
+    subtitle: "Manage your ARIX reading platform."
+  },
+  stories: {
+    title: "Story Management",
+    subtitle: "Create and manage your story records."
+  },
+  chapters: {
+    title: "Chapter Management",
+    subtitle: "Prepare your comic and novel chapters."
+  },
+  announcements: {
+    title: "Announcements",
+    subtitle: "Prepare updates for your readers."
+  }
+};
+
+function openPage(pageName) {
+  if (!pageDetails[pageName]) return;
+
+  document.querySelectorAll(".page").forEach(page => {
+    page.classList.toggle("active", page.id === pageName);
+  });
+
+  document.querySelectorAll(".nav-btn").forEach(button => {
+    button.classList.toggle(
+      "active",
+      button.dataset.page === pageName
+    );
+  });
+
+  $("pageTitle").textContent = pageDetails[pageName].title;
+  $("pageSubtitle").textContent = pageDetails[pageName].subtitle;
+
+  if (pageName === "stories") {
+    renderStories();
+  }
+
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
+  });
+}
+
+document.querySelectorAll("[data-page]").forEach(button => {
+  button.addEventListener("click", () => {
+    openPage(button.dataset.page);
+  });
+});
+
+document.querySelectorAll("[data-goto]").forEach(button => {
+  button.addEventListener("click", () => {
+    openPage(button.dataset.goto);
+  });
+});
+
+/* RENDER DASHBOARD */
+
+function renderStats() {
+  $("totalStories").textContent = stories.length;
+
+  $("publishedStories").textContent = stories.filter(
+    story => story.status === "Published"
+  ).length;
+
+  $("draftStories").textContent = stories.filter(
+    story => story.status === "Draft"
+  ).length;
+}
+
+function renderRecentStories() {
+  const recent = stories.slice(0, 5);
+
+  if (recent.length === 0) {
+    $("recentRows").innerHTML = `
+      <tr>
+        <td colspan="3" class="empty">No stories yet.</td>
+      </tr>
+    `;
+    return;
+  }
+
+  $("recentRows").innerHTML = recent.map(story => `
+    <tr>
+      <td>
+        <div class="story-title">
+          ${escapeHTML(story.title)}
+        </div>
+        <div class="story-description">
+          ${escapeHTML(story.description || "No description")}
+        </div>
+      </td>
+
+      <td>${escapeHTML(story.type)}</td>
+
+      <td>
+        <span class="pill ${statusClass(story.status)}">
+          ${escapeHTML(story.status)}
+        </span>
+      </td>
+    </tr>
+  `).join("");
+}
+/* STORY TABLE */
+
+function renderStories() {
+  const searchTerm = $("storySearch").value.trim().toLowerCase();
+  const filter = $("storyFilter").value;
+
+  const filtered = stories.filter(story => {
+    const matchesSearch =
+      String(story.title || "").toLowerCase().includes(searchTerm) ||
+      String(story.genre || "").toLowerCase().includes(searchTerm) ||
+      String(story.type || "").toLowerCase().includes(searchTerm);
+
+    const matchesStatus =
+      filter === "All" || story.status === filter;
+
+    return matchesSearch && matchesStatus;
+  });
+
+  if (filtered.length === 0) {
+    $("storyRows").innerHTML = `
+      <tr>
+        <td colspan="5" class="empty">
+          No matching stories found.
+        </td>
+      </tr>
+    `;
+  } else {
+    $("storyRows").innerHTML = filtered.map(story => `
+      <tr>
+        <td>
+          <div class="story-title">
+            ${escapeHTML(story.title)}
+          </div>
+          <div class="story-description">
+            ${escapeHTML(story.description || "No description")}
+          </div>
+        </td>
+
+        <td>${escapeHTML(story.type)}</td>
+        <td>${escapeHTML(story.genre || "Uncategorized")}</td>
+
+        <td>
+          <span class="pill ${statusClass(story.status)}">
+            ${escapeHTML(story.status)}
+          </span>
+        </td>
+
+        <td>
+          <div class="row-actions">
+            <button class="btn" type="button"
+                    data-edit="${Number(story.id)}">
+              Edit
+            </button>
+
+            <button class="btn danger" type="button"
+                    data-delete="${Number(story.id)}">
+              Delete
+            </button>
+          </div>
+        </td>
+      </tr>
+    `).join("");
+  }
+
+  $("storyCount").textContent =
+    `Showing ${filtered.length} of ${stories.length} stories.`;
+
+  renderStats();
+  renderRecentStories();
+}
+
+function renderAll() {
+  renderStats();
+  renderRecentStories();
+  renderStories();
+}
+
+/* ADD STORY FORM */
+
+function openStoryForm() {
+  editingId = null;
+
+  $("storyForm").reset();
+  $("formHeading").textContent = "Add New Story";
+  $("saveStoryBtn").textContent = "Save Demo Story";
+
+  $("storyFormWrap").classList.add("open");
+
+  $("storyFormWrap").scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+
+  $("storyTitle").focus();
+}
+
+function closeStoryForm() {
+  editingId = null;
+
+  $("storyForm").reset();
+  $("formHeading").textContent = "Add New Story";
+  $("saveStoryBtn").textContent = "Save Demo Story";
+
+  $("storyFormWrap").classList.remove("open");
+}
+
+$("addStoryBtn").addEventListener("click", openStoryForm);
+
+$("overviewAddBtn").addEventListener("click", () => {
+  openPage("stories");
+  openStoryForm();
+});
+
+$("cancelStoryBtn").addEventListener("click", closeStoryForm);
+
+/* SAVE NEW STORY OR UPDATE EXISTING STORY */
+
+$("storyForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const title = $("storyTitle").value.trim();
+  const type = $("storyType").value;
+  const genre = $("storyGenre").value.trim();
+  const description = $("storyDescription").value.trim();
+  const status = $("storyStatus").value;
+
+  if (!title || !genre) {
+    showToast("Please enter a title and genre.");
+    return;
+  }
+
+  const storyData = {
+    title,
+    type,
+    genre,
+    description,
+    status
+  };
+
+  if (editingId !== null) {
+    const index = stories.findIndex(
+      story => Number(story.id) === Number(editingId)
+    );
+
+    if (index === -1) {
+      showToast("Story not found. Please try again.");
+      closeStoryForm();
+      return;
+    }
+
+    const oldStory = stories[index];
+
+    stories[index] = {
+      ...oldStory,
+      ...storyData
+    };
+
+    if (!saveStories()) {
+      stories[index] = oldStory;
+      return;
+    }
+
+    closeStoryForm();
+    renderAll();
+    showToast("Story updated successfully.");
+    return;
+  }
+
+  const newStory = {
+    id: Date.now(),
+    ...storyData
+  };
+
+  stories.unshift(newStory);
+
+  if (!saveStories()) {
+    stories = stories.filter(
+      story => story.id !== newStory.id
+    );
+    return;
+  }
+
+  closeStoryForm();
+  renderAll();
+  showToast("Story added successfully.");
+});
+
+/* EDIT AND DELETE STORIES */
+
+$("storyRows").addEventListener("click", event => {
+  const editButton = event.target.closest("[data-edit]");
+  const deleteButton = event.target.closest("[data-delete]");
+
+  if (editButton) {
+    const story = getStoryById(editButton.dataset.edit);
+
+    if (!story) {
+      showToast("Story not found.");
+      return;
+    }
+
+    editingId = Number(story.id);
+
+    $("storyTitle").value = story.title || "";
+    $("storyType").value = story.type || "Comic";
+    $("storyGenre").value = story.genre || "";
+    $("storyDescription").value = story.description || "";
+    $("storyStatus").value = story.status || "Draft";
+
+    $("formHeading").textContent = "Edit Story";
+    $("saveStoryBtn").textContent = "Update Story";
+
+    $("storyFormWrap").classList.add("open");
+
+    $("storyFormWrap").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+
+    $("storyTitle").focus();
+    return;
+  }
+
+  if (deleteButton) {
+    const id = Number(deleteButton.dataset.delete);
+    const story = getStoryById(id);
+
+    if (!story) {
+      showToast("Story not found.");
+      return;
+    }
+
+    const confirmed = confirm(
+      `Delete "${story.title}" from this browser? This cannot be undone.`
+    );
+
+    if (!confirmed) return;
+
+    const previousStories = [...stories];
+
+    stories = stories.filter(
+      item => Number(item.id) !== id
+    );
+
+    if (!saveStories()) {
+      stories = previousStories;
+      return;
+    }
+
+    if (editingId === id) {
+      closeStoryForm();
+    }
+
+    renderAll();
+    showToast("Story deleted.");
+  }
+});
+
+/* SEARCH AND FILTER */
+
+$("storySearch").addEventListener("input", renderStories);
+$("storyFilter").addEventListener("change", renderStories);
+
+/* ANNOUNCEMENTS */
+
+function updateAnnouncementPreview() {
+  const title = $("announcementTitle").value.trim();
+  const message = $("announcementMessage").value.trim();
+
+  if (!title && !message) {
+    $("announcementPreview").textContent =
+      "Your saved announcement will appear here.";
+    return;
+  }
+
+  $("announcementPreview").textContent =
+    `${title || "Untitled Announcement"}\n\n${message}`;
+}
+
+$("announcementTitle").addEventListener(
+  "input",
+  updateAnnouncementPreview
+);
+
+$("announcementMessage").addEventListener(
+  "input",
+  updateAnnouncementPreview
+);
+
+$("announcementForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const data = {
+    title: $("announcementTitle").value.trim(),
+    message: $("announcementMessage").value.trim()
+  };
+
+  try {
+    localStorage.setItem(
+      ANNOUNCEMENT_KEY,
+      JSON.stringify(data)
+    );
+
+    updateAnnouncementPreview();
+    showToast("Announcement draft saved.");
+  } catch (error) {
+    showToast("Could not save announcement.");
+  }
+});
+
+$("clearAnnouncementBtn").addEventListener("click", () => {
+  const confirmed = confirm("Clear the announcement draft?");
+
+  if (!confirmed) return;
+
+  $("announcementTitle").value = "";
+  $("announcementMessage").value = "";
+
+  try {
+    localStorage.removeItem(ANNOUNCEMENT_KEY);
+  } catch (error) {
+    console.error(error);
+  }
+
+  updateAnnouncementPreview();
+  showToast("Announcement draft cleared.");
+});
+
+/* CHAPTER INFORMATION */
+
+$("chapterInfoBtn").addEventListener("click", () => {
+  $("chapterInfo").hidden = !$("chapterInfo").hidden;
+});
+
+/* START DASHBOARD */
+
+loadStories();
+loadAnnouncement();
+renderAll();
+
+</script>
+</body>
+</html>
