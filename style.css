@@ -2326,3 +2326,18 @@ body::before {
     min-height: 300px;
   }
 }
+/* ARIX: USE ONE BACKGROUND ONLY */
+.hero-visual {
+  background: transparent !important;
+  background-image: none !important;
+}
+
+.hero-visual img,
+.hero-visual .hero-card,
+.hero-visual .hero-background {
+  display: none !important;
+}
+
+.hero-overlay {
+  background: transparent !important;
+}
