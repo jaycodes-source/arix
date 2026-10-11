@@ -2341,3 +2341,38 @@ body::before {
 .hero-overlay {
   background: transparent !important;
 }
+/* ARIX TRENDING CAROUSEL */
+.trending-section {
+  padding-top: 24px !important;
+  padding-bottom: 28px !important;
+}
+
+.trending-grid {
+  display: flex !important;
+  gap: 14px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 4px 2px 14px;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.trending-grid::-webkit-scrollbar {
+  display: none;
+}
+
+.trending-grid .story-card {
+  flex: 0 0 145px;
+  width: 145px;
+  scroll-snap-align: start;
+}
+
+.trending-grid .story-cover {
+  aspect-ratio: 3 / 4;
+}
+
+.trending-grid .story-description,
+.trending-grid .story-actions {
+  display: none;
+}
