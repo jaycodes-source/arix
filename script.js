@@ -111,37 +111,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!query) {
       renderStories();
-/* TRENDING STORIES */
-const trendingGrid = document.getElementById("trendingGrid");
-
-function renderTrending() {
-  if (!trendingGrid) return;
-
-  const trendingStories = [...stories].slice(0, 10);
-
-  if (trendingStories.length === 0) {
-    trendingGrid.innerHTML =
-      '<p class="no-results">No trending stories yet.</p>';
-    return;
-  }
-
-  trendingGrid.innerHTML = trendingStories.map(story => `
-    <article class="story-card" data-story-id="${story.id}">
-      <div class="story-cover">
-        ${story.cover
-          ? `<img src="${story.cover}" alt="${story.title}" loading="lazy">`
-          : `<div class="story-cover-placeholder"><span>${story.title}</span></div>`
-        }
-      </div>
-      <div class="story-info">
-        <h3 class="story-title">${story.title}</h3>
-        <p class="story-author">${story.genre || story.type || "Story"}</p>
-      </div>
-    </article>
-  `).join("");
-}
-
-renderTrending();
       return;
     }
 
