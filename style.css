@@ -2376,3 +2376,31 @@ body::before {
 .trending-grid .story-actions {
   display: none;
 }
+
+/* ARIX MOBILE HERO FIX */
+@media (max-width: 768px) {
+  .hero-section {
+    min-height: auto !important;
+    height: auto !important;
+    padding-top: 24px !important;
+    padding-bottom: 24px !important;
+  }
+
+  .hero-visual {
+    min-height: 0 !important;
+    height: 260px !important;
+  }
+
+  #trending {
+    margin-top: 0 !important;
+    padding: 24px 16px 100px !important;
+    min-height: auto !important;
+    background: #090b12;
+  }
+
+  #trending .story-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+  }
+}
