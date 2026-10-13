@@ -2453,3 +2453,22 @@ body::before {
     margin-top: 0 !important;
   }
 }
+/* ARIX HERO SPACING FIX */
+.hero-section {
+  min-height: 0 !important;
+  height: auto !important;
+  padding-bottom: 20px !important;
+  margin-bottom: 0 !important;
+}
+
+.hero-section .hero-content {
+  margin-bottom: 0 !important;
+}
+
+@media (max-width: 600px) {
+  .hero-section {
+    min-height: 0 !important;
+    padding-top: 24px !important;
+    padding-bottom: 16px !important;
+  }
+}
