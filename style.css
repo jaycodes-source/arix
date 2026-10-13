@@ -2472,3 +2472,29 @@ body::before {
     padding-bottom: 16px !important;
   }
 }
+/* ARIX — FIX OVERSIZED HERO */
+.hero-section {
+  height: auto !important;
+  min-height: 0 !important;
+  padding-top: 36px !important;
+  padding-bottom: 24px !important;
+  margin-bottom: 0 !important;
+}
+
+.hero-section .hero-inner,
+.hero-section .hero-content {
+  min-height: 0 !important;
+  height: auto !important;
+}
+
+.hero-section .hero-visual,
+.hero-section .hero-background {
+  display: none !important;
+}
+
+@media (max-width: 600px) {
+  .hero-section {
+    padding-top: 28px !important;
+    padding-bottom: 20px !important;
+  }
+}
