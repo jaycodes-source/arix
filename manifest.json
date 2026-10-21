@@ -1,0 +1,14 @@
+{
+  "name": "ARIX — Stories Beyond Limits",
+  "short_name": "ARIX",
+  "description": "Discover comics, manga, and novels.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#090b12",
+  "theme_color": "#090b12",
+  "icons": [
+    {"src":"assets/icons/arix-mark.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}

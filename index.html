@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#090b12">
+  <meta name="description" content="ARIX — discover comics, manga, and novels.">
+  <title>ARIX — Stories beyond limits</title>
+  <link rel="icon" href="assets/icons/arix-mark.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="intro" class="intro" aria-label="ARIX loading">
+    <img class="intro-logo" src="assets/icons/arix-mark.svg" alt="ARIX logo">
+  </div>
+
+  <div class="app-shell" id="app">
+    <aside class="sidebar">
+      <a class="brand" href="#home" aria-label="ARIX home"><img src="assets/icons/arix-mark.svg" alt=""><span>ARIX</span></a>
+      <nav class="side-nav" aria-label="Main navigation">
+        <a href="#home" data-nav="home" class="nav-link active"><span>⌂</span>Home</a>
+        <a href="#discover" data-nav="discover" class="nav-link"><span>◈</span>Discover</a>
+        <a href="#trending" data-nav="trending" class="nav-link"><span>↗</span>Trending</a>
+        <a href="#genres" data-nav="genres" class="nav-link"><span>▦</span>Genres</a>
+        <a href="#library" data-nav="library" class="nav-link"><span>▣</span>My Library</a>
+      </nav>
+      <div class="sidebar-bottom"><div class="sidebar-note"><span class="live-dot"></span><span>YOUR NEXT WORLD<br><b>IS WAITING</b></span></div><button id="themeButton" class="quiet-button" type="button">◐ <span>Display settings</span></button></div>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <button class="mobile-brand" id="mobileHome" aria-label="Go home"><img src="assets/icons/arix-mark.svg" alt=""><span>ARIX</span></button>
+        <div class="breadcrumb"><span class="eyebrow">YOUR STORY UNIVERSE</span><span class="crumb-line"></span></div>
+        <label class="search-box"><span aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="Search stories, genres..." autocomplete="off" aria-label="Search stories"><kbd>/</kbd></label>
+        <button class="avatar-button" id="profileButton" aria-label="Open profile">J</button>
+      </header>
+
+      <section class="view active" id="view-home" data-view="home">
+        <section class="hero">
+          <div class="hero-content">
+            <div class="hero-tag"><span class="live-dot"></span> THE NEXT CHAPTER STARTS HERE</div>
+            <p class="eyebrow">WELCOME TO ARIX</p>
+            <h1>Find a world<br>worth <em>getting lost in.</em></h1>
+            <p class="hero-copy">Explore unforgettable comics, manga, and novels — all in one universe.</p>
+            <div class="hero-actions"><a class="button button-primary" href="#discover">Explore stories <span>↗</span></a><a class="button button-ghost" href="#trending">See what's trending</a></div>
+          </div>
+          <div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="hero-glyph">A<span>R</span></div><div class="hero-star star-one">✦</div><div class="hero-star star-two">✧</div><div class="hero-art-caption">STORIES<br>BEYOND LIMITS</div></div>
+          <div class="hero-index"><span>01</span><span class="index-track"></span><span>ARIX UNIVERSE</span></div>
+        </section>
+        <section class="section-block">
+          <div class="section-heading"><div><p class="eyebrow">WHAT EVERYONE'S READING</p><h2>Trending <span class="accent">now</span><span class="fire">↗</span></h2></div><a class="text-link" href="#trending">View all <span>→</span></a></div>
+          <div class="story-grid" id="homeTrending"></div>
+        </section>
+        <section class="section-block">
+          <div class="section-heading"><div><p class="eyebrow">PICK UP WHERE YOU LEFT OFF</p><h2>Continue reading</h2></div><a class="text-link" href="#library">Your library <span>→</span></a></div>
+          <div id="continueGrid" class="story-grid compact-grid"></div>
+        </section>
+        <section class="section-block">
+          <div class="section-heading"><div><p class="eyebrow">EXPLORE YOUR MOOD</p><h2>Find your <span class="accent">genre</span></h2></div><a class="text-link" href="#genres">All genres <span>→</span></a></div>
+          <div id="homeGenres" class="genre-grid"></div>
+        </section>
+      </section>
+
+      <section class="view" id="view-discover" data-view="discover">
+        <div class="page-heading"><p class="eyebrow">YOUR NEXT OBSESSION</p><h1>Discover <em>stories.</em></h1><p>Explore the worlds waiting to be opened.</p></div>
+        <div class="filter-row" id="discoverFilters"><button class="filter-chip selected" data-filter="All">All stories</button><button class="filter-chip" data-filter="Comic">Comics</button><button class="filter-chip" data-filter="Manga">Manga</button><button class="filter-chip" data-filter="Novel">Novels</button></div>
+        <div id="discoverGrid" class="story-grid"></div>
+      </section>
+
+      <section class="view" id="view-trending" data-view="trending">
+        <div class="page-heading"><p class="eyebrow">THE COMMUNITY'S CURRENT FAVOURITES</p><h1>Trending <em>now.</em></h1><p>Editor's picks for now. Popularity rankings can be connected to real reading activity with Supabase later.</p></div>
+        <div class="trending-banner"><span class="trending-mark">↗</span><div><b>THE ARIX HOT LIST</b><p>Fresh worlds. Big adventures. Your next favourite.</p></div><span class="banner-number">01 — 08</span></div>
+        <div id="trendingGrid" class="story-grid"></div>
+      </section>
+
+      <section class="view" id="view-genres" data-view="genres">
+        <div class="page-heading"><p class="eyebrow">FOLLOW YOUR CURIOSITY</p><h1>Explore by <em>genre.</em></h1><p>Pick a mood. Find a new universe.</p></div>
+        <div id="genrePageGrid" class="genre-grid genre-grid-large"></div>
+        <div class="section-heading genre-results-heading"><div><p class="eyebrow">SELECTED COLLECTION</p><h2 id="genreResultsTitle">All stories</h2></div></div>
+        <div id="genreResults" class="story-grid"></div>
+      </section>
+
+      <section class="view" id="view-library" data-view="library">
+        <div class="page-heading"><p class="eyebrow">YOUR PERSONAL COLLECTION</p><h1>My <em>library.</em></h1><p>Saved stories and your recent reading, stored on this device for now.</p></div>
+        <div class="filter-row"><button class="filter-chip selected" data-library="bookmarks">Bookmarks</button><button class="filter-chip" data-library="history">Reading history</button></div>
+        <div id="libraryGrid" class="story-grid"></div>
+      </section>
+
+      <section class="view" id="view-search" data-view="search">
+        <div class="page-heading"><p class="eyebrow">SEARCH THE ARIX UNIVERSE</p><h1>Find your <em>next read.</em></h1><p id="searchCaption">Type a title, genre, or format in the search bar.</p></div>
+        <div id="searchGrid" class="story-grid"></div>
+      </section>
+
+      <section class="view" id="view-profile" data-view="profile">
+        <div class="page-heading"><p class="eyebrow">YOUR ARIX SPACE</p><h1>Your <em>profile.</em></h1><p>This is a local demo profile. Supabase authentication will be added in the backend stage.</p></div>
+        <div class="profile-panel"><div class="profile-avatar">J</div><div><p class="eyebrow">READER PROFILE</p><h2>Guest reader</h2><p class="muted">Your reading space on this device</p></div></div>
+        <div class="settings-panel"><h2>Reading preferences</h2><label class="setting-row"><span><b>Reduce intro animation</b><small>Skip most of the opening motion.</small></span><input type="checkbox" id="reduceIntro"></label><label class="setting-row"><span><b>Compact story cards</b><small>Show more stories in each row.</small></span><input type="checkbox" id="compactToggle"></label><button class="button button-ghost" id="clearHistory">Clear reading history</button><p class="muted small">These settings are saved in this browser. They are not synced between devices yet.</p></div>
+      </section>
+
+      <section class="view" id="view-reader" data-view="reader">
+        <div class="reader-top"><button class="button button-ghost" id="readerBack">← Back</button><span class="eyebrow">ARIX READER</span><button class="button button-ghost" id="readerBookmark">☆ Save</button></div>
+        <div id="readerContent" class="reader-content"></div>
+      </section>
+      <footer class="footer"><span>© ARIX</span><span>BUILT FOR WORLDS BEYOND LIMITS</span><button id="footerSettings" type="button">Display settings ↗</button></footer>
+    </main>
+  </div>
+  <nav class="mobile-nav" aria-label="Mobile navigation"><a href="#home" data-nav="home" class="active"><span>⌂</span>Home</a><a href="#discover" data-nav="discover"><span>◈</span>Discover</a><a href="#trending" data-nav="trending"><span>↗</span>Trending</a><a href="#library" data-nav="library"><span>▣</span>Library</a></nav>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="assets/js/stories.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
