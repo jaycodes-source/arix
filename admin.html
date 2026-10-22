@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080a12">
+<title>ARIX Admin Portal</title>
+
+<style>
+:root {
+  --bg: #080a12;
+  --panel: #111522;
+  --line: #293149;
+  --text: #f3f5ff;
+  --muted: #9ba6c3;
+  --blue: #4ea1ff;
+  --purple: #9a70ff;
+  --red: #ff7188;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse at top right, #20204a, transparent 40%),
+    #080a12;
+  color: var(--text);
+  font-family: Arial, sans-serif;
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  min-height: 100vh;
+}
+
+aside {
+  padding: 25px 15px;
+  background: #0b0e18;
+  border-right: 1px solid var(--line);
+}
+
+.brand {
+  font-size: 30px;
+  font-weight: 900;
+  letter-spacing: 5px;
+  margin: 10px;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 12px;
+  margin: 10px;
+}
+
+nav {
+  margin-top: 30px;
+}
+
+.nav-btn {
+  width: 100%;
+  display: block;
+  text-align: left;
+  padding: 13px;
+  margin-bottom: 8px;
+  border-radius: 9px;
+  color: #cbd3e8;
+  background: transparent;
+  border: 1px solid transparent;
+}
+
+.nav-btn.active,
+.nav-btn:hover {
+  background: linear-gradient(100deg, #253d68, #452a73);
+  border-color: #44517b;
+  color: white;
+}
+
+main {
+  padding: 30px;
+  min-width: 0;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-bottom: 25px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 32px;
+}
+
+h2 {
+  margin-top: 0;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+.badge {
+  display: inline-block;
+  border: 1px solid #44517b;
+  border-radius: 20px;
+  padding: 6px 10px;
+  font-size: 12px;
+}
+
+.card {
+  background: linear-gradient(145deg, #141a2b, #0f1320);
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.section {
+  display: none;
+}
+
+.section.active {
+  display: block;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+.stat {
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.btn {
+  border: 0;
+  border-radius: 9px;
+  padding: 11px 15px;
+  color: white;
+  font-weight: bold;
+  background: linear-gradient(100deg, var(--blue), var(--purple));
+}
+
+.btn.secondary {
+  background: #252c40;
+  border: 1px solid #3b4560;
+}
+
+.btn.danger {
+  background: #4a1e2b;
+  border: 1px solid #8c3448;
+}
+
+.notice {
+  background: #18243a;
+  border: 1px solid #344d77;
+  padding: 14px;
+  border-radius: 10px;
+  margin-bottom: 22px;
+}
+
+@media(max-width: 760px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  aside {
+    padding: 12px;
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .brand {
+    display: inline-block;
+    font-size: 25px;
+  }
+
+  .subtitle {
+    display: inline-block;
+  }
+
+  nav {
+    display: flex;
+    gap: 5px;
+    overflow-x: auto;
+    margin-top: 12px;
+  }
+
+  .nav-btn {
+    width: auto;
+    white-space: nowrap;
+  }
+
+  main {
+    padding: 18px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
