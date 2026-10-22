@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ARIX | Admin Studio</title>
+
+  <meta name="theme-color" content="#080910">
+
+  <style>
+    :root {
+      --bg: #080910;
+      --panel: #11131f;
+      --panel-light: #191c2b;
+      --border: #282b40;
+      --text: #f4f5ff;
+      --muted: #999db5;
+      --blue: #48bfff;
+      --purple: #9365ff;
+      --green: #54e6a5;
+      --red: #ff7185;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(ellipse at top right, #211447 0%, transparent 35%),
+        var(--bg);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 245px minmax(0, 1fr);
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      padding: 25px 17px;
+      background: rgba(10, 11, 19, .96);
+      border-right: 1px solid var(--border);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 35px;
+    }
+
+    .brand-icon {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 13px;
+      color: white;
+      font-weight: 900;
+      font-size: 22px;
+      background: linear-gradient(135deg, var(--purple), var(--blue));
+      box-shadow: 0 0 25px #754bff30;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 21px;
+      letter-spacing: 3px;
+    }
+
+    .brand small {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: 1.5px;
+    }
+
+    .nav-label {
+      margin: 24px 10px 10px;
+      color: #777c98;
+      font-size: 10px;
+      font-weight: bold;
+      letter-spacing: 1.8px;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      margin: 5px 0;
+      padding: 13px 12px;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      background: transparent;
+      color: #b8bdd2;
+      text-align: left;
+      font-size: 13px;
+      transition: .2s;
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: white;
+      border-color: #6d59b94a;
+      background: linear-gradient(90deg, #7147ff24, #42bfff0b);
+    }
+
+    .nav-icon {
+      width: 20px;
+      font-size: 17px;
+      text-align: center;
+    }
+
+    .sidebar-bottom {
+      margin-top: 40px;
+      padding: 15px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--panel);
+    }
+
+    .sidebar-bottom strong {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 12px;
+    }
+
+    .sidebar-bottom p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    main {
+      min-width: 0;
+      padding: 25px clamp(16px, 4vw, 45px);
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 35px;
+    }
+
+    .topbar p {
+      margin: 0 0 5px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .topbar h2 {
+      margin: 0;
+      font-size: clamp(21px, 3vw, 30px);
+    }
+
+    .admin-badge {
+      padding: 9px 12px;
+      border: 1px solid #7658ff65;
+      border-radius: 9px;
+      background: #7658ff15;
+      color: #c5b4ff;
+      font-size: 11px;
+      white-space: nowrap;
+    }
+
+    .welcome {
+      position: relative;
+      overflow: hidden;
+      padding: 27px;
+      margin-bottom: 25px;
+      border: 1px solid #52429a;
+      border-radius: 17px;
+      background: linear-gradient(115deg, #211741, #11182c 65%, #102a3b);
+    }
+
+    .welcome::after {
+      content: "✦";
+      position: absolute;
+      right: 30px;
+      top: 3px;
+      color: #8a74ff25;
+      font-size: 130px;
+      pointer-events: none;
+    }
+
+    .welcome .eyebrow {
+      color: #b8a7ff;
+      font-size: 10px;
+      letter-spacing: 2px;
+      font-weight: bold;
+    }
+
+    .welcome h3 {
+      position: relative;
+      z-index: 1;
+      margin: 12px 0 8px;
+      font-size: clamp(22px, 3vw, 30px);
+    }
+
+    .welcome p {
+      position: relative;
+      z-index: 1;
+      max-width: 540px;
+      margin: 0;
+      color: #c0c3d8;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 28px 0 16px;
+    }
+
+    .section-title h3 {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .section-title span {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .stat {
+      padding: 19px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      background: linear-gradient(145deg, #151725, #0e1019);
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .stat-value {
+      display: block;
+      margin: 15px 0 7px;
+      font-size: 29px;
+      font-weight: 800;
+    }
+
+    .stat-note {
+      color: #a9adc3;
+      font-size: 10px;
+    }
+
+    .blue { color: var(--blue); }
+    .purple { color: #b39aff; }
+    .green { color: var(--green); }
+    .red { color: var(--red); }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(240px, 1fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .panel {
+      min-width: 0;
+      padding: 21px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(17, 19, 31, .9);
+    }
+
+    .panel h3 {
+      margin: 0 0 6px;
+      font-size: 15px;
+    }
+
+    .panel-subtitle {
+      margin: 0 0 20px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    .action-button {
+      display: flex;
+      align-items: center;
+      gap: 13px;
+      width: 100%;
+      padding: 14px 12px;
+      margin-top: 10px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #171a29;
+      color: var(--text);
+      text-align: left;
+      transition: .2s;
+    }
+
+    .action-button:hover {
+      border-color: var(--purple);
+      background: #211a38;
+    }
+
+    .action-icon {
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      width: 39px;
+      height: 39px;
+      border-radius: 10px;
+      background: #7957ff20;
+      font-size: 19px;
+    }
+
+    .action-button strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 12px;
+    }
+
+    .action-button small {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+      line-height: 1.5;
+    }
+
+    .status-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      color: #d5d7e7;
+      font-size: 12px;
+    }
+
+    .status-row:last-child {
+      border-bottom: 0;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      flex-shrink: 0;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 10px #54e6a555;
+    }
+
+    .status-dot.warning {
+      background: #ffca70;
+      box-shadow: 0 0 10px #ffca7055;
+    }
+
+    .status-text {
+      margin-left: auto;
+      color: var(--muted);
+      font-size: 10px;
+      text-align: right;
+    }
+
+    .notice {
+      margin-top: 18px;
+      padding: 14px;
+      border: 1px solid #4b3e7c;
+      border-radius: 10px;
+      background: #201737;
+      color: #cfc2ff;
+      font-size: 11px;
+      line-height: 1.7;
+    }
+
+    .view {
+      display: none;
+    }
+
+    .view.active {
+      display: block;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: var(--blue);
+      font-size: 12px;
+      text-decoration: none;
+    }
+
+    .empty-state {
+      padding: 30px 10px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.8;
+    }
+
+    @media (max-width: 1000px) {
+      .stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .content-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 650px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        padding: 15px;
+        border-right: 0;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .brand {
+        margin-bottom: 16px;
+      }
+
+      .nav-label,
+      .sidebar-bottom {
+        display: none;
+      }
+
+      .nav-list {
+        display: flex;
+        gap: 7px;
+        overflow-x: auto;
+        padding-bottom: 3px;
+      }
+
+      .nav-link {
+        flex: 0 0 auto;
+        width: auto;
+        margin: 0;
+        padding: 10px;
+        font-size: 11px;
+      }
+
+      .nav-icon {
+        width: auto;
+      }
+
+      main {
+        padding: 22px 15px;
+      }
+
+      .topbar {
+        margin-bottom: 22px;
+      }
+
+      .welcome {
+        padding: 22px 18px;
+      }
+
+      .stat {
+        padding: 15px;
+      }
+
+      .stat-value {
+        font-size: 25px;
+      }
+
+      .panel {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="layout">
+
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="brand-icon">A</div>
+        <div>
+          <h1>ARIX</h1>
+          <small>ADMIN STUDIO</small>
+        </div>
+      </div>
+
+      <div class="nav-label">WORKSPACE</div>
+
+      <nav class="nav-list">
+        <button class="nav-link active" data-page="dashboard">
+          <span class="nav-icon">▦</span> Dashboard
+        </button>
+
+        <button class="nav-link" data-page="stories">
+          <span class="nav-icon">▤</span> Stories
+        </button>
+
+        <button class="nav-link" data-page="chapters">
+          <span class="nav-icon">▥</span> Chapters
+        </button>
+
+        <button class="nav-link" data-page="media">
+          <span class="nav-icon">▧</span> Media
+        </button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <strong>ARIX CONTROL CENTRE</strong>
+        <p>Manage your creative library from one place. Backend publishing will be connected separately.</p>
+      </div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <div>
+          <p>ARIX / Workspace</p>
+          <h2 id="pageTitle">Dashboard</h2>
+        </div>
+
+        <div class="admin-badge">◆ ADMIN STUDIO</div>
+      </header>
+
+      <section class="view active" id="dashboard">
+        <div class="welcome">
+          <div class="eyebrow">YOUR CREATOR WORKSPACE</div>
+          <h3>Welcome to ARIX Studio.</h3>
+          <p>
+            Your central workspace for organising comics, novels,
+            chapters, and cover artwork. Build your library one story at a time.
+          </p>
+        </div>
+
+        <div class="section-title">
+          <h3>Library Overview</h3>
+          <span>Saved on this browser</span>
+        </div>
+
+        <div class="stats">
+          <div class="stat">
+            <span class="stat-label">Total Stories</span>
+            <strong class="stat-value blue" id="storyCount">0</strong>
+            <span class="stat-note">Local records</span>
+          </div>
+
+          <div class="stat">
+            <span class="stat-label">Total Chapters</span>
+            <strong class="stat-value purple" id="chapterCount">0</strong>
+            <span class="stat-note">Local records</span>
+          </div>
+
+          <div class="stat">
+            <span class="stat-label">Published</span>
+            <strong class="stat-value green" id="publishedCount">0</strong>
+            <span class="stat-note">Local status only</span>
+          </div>
+
+          <div class="stat">
+            <span class="stat-label">Drafts</span>
+            <strong class="stat-value red" id="draftCount">0</strong>
+            <span class="stat-note">Awaiting preparation</span>
+          </div>
+        </div>
+
+        <div class="section-title">
+          <h3>Workspace</h3>
+          <span>Quick actions</span>
+        </div>
+
+        <div class="content-grid">
+          <section class="panel">
+            <h3>Quick Actions</h3>
+            <p class="panel-subtitle">Jump directly to a management area.</p>
+
+            <button class="action-button" data-go="stories">
+              <span class="action-icon">📚</span>
+              <span>
+                <strong>Manage Stories</strong>
+                <small>Create and organise comic and novel entries.</small>
+              </span>
+            </button>
+
+            <button class="action-button" data-go="chapters">
+              <span class="action-icon">📖</span>
+              <span>
+                <strong>Manage Chapters</strong>
+                <small>Prepare chapter records for your stories.</small>
+              </span>
+            </button>
+
+            <button class="action-button" data-go="media">
+              <span class="action-icon">🖼️</span>
+              <span>
+                <strong>Media Library</strong>
+                <small>Prepare cover artwork and image assets.</small>
+              </span>
+            </button>
+          </section>
+
+          <section class="panel">
+            <h3>System Status</h3>
+            <p class="panel-subtitle">Current prototype capabilities.</p>
+
+            <div class="status-row">
+              <span class="status-dot"></span>
+              Admin interface
+              <span class="status-text">Available</span>
+            </div>
+
+            <div class="status-row">
+              <span class="status-dot"></span>
+              Local browser storage
+              <span class="status-text">Available</span>
+            </div>
+
+            <div class="status-row">
+              <span class="status-dot warning"></span>
+              Secure admin login
+              <span class="status-text">Not connected</span>
+            </div>
+
+            <div class="status-row">
+              <span class="status-dot warning"></span>
+              Online publishing
+              <span class="status-text">Not connected</span>
+            </div>
+
+            <div class="notice">
+              Important: this is currently a local prototype, not a secured
+              admin system. Do not use it to store confidential information.
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <section class="view" id="stories">
+        <div class="panel">
+          <h3>Story Management</h3>
+          <p class="panel-subtitle">
+            Your story-management workspace will appear here.
+          </p>
+
+          <div class="empty-state">
+            📚<br>
+            Story management is the next feature to build.<br>
+            We'll add the story form, cover preview, draft saving, and editing tools.
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="chapters">
+        <div class="panel">
+          <h3>Chapter Management</h3>
+          <p class="panel-subtitle">
+            Organise chapter titles, numbering, and comic pages.
+          </p>
+
+          <div class="empty-state">
+            📖<br>
+            The chapter manager will be added after story creation.
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="media">
+        <div class="panel">
+          <h3>Media Library</h3>
+          <p class="panel-subtitle">
+            Prepare and preview artwork for your stories.
+          </p>
+
+          <div class="empty-state">
+            🖼️<br>
+            The media library will be added in the next stage.
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <script>
+    const navLinks = document.querySelectorAll("[data-page]");
+    const views = document.querySelectorAll(".view");
+    const pageTitle = document.getElementById("pageTitle");
+
+    const titles = {
+      dashboard: "Dashboard",
+      stories: "Story Management",
+      chapters: "Chapter Management",
+      media: "Media Library"
+    };
+
+    function openPage(page) {
+      views.forEach(view => {
+        view.classList.toggle("active", view.id === page);
+      });
+
+      navLinks.forEach(link => {
+        link.classList.toggle("active", link.dataset.page === page);
+      });
+
+      pageTitle.textContent = titles[page] || "Dashboard";
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    navLinks.forEach(link => {
+      link.addEventListener("click", () => openPage(link.dataset.page));
+    });
+
+    document.querySelectorAll("[data-go]").forEach(button => {
+      button.addEventListener("click", () => openPage(button.dataset.go));
+    });
+
+    function updateDashboard() {
+      try {
+        const stories = JSON.parse(
+          localStorage.getItem("arix_admin_stories") || "[]"
+        );
+
+        const chapters = JSON.parse(
+          localStorage.getItem("arix_admin_chapters") || "[]"
+        );
+
+        document.getElementById("storyCount").textContent = stories.length;
+        document.getElementById("chapterCount").textContent = chapters.length;
+
+        document.getElementById("publishedCount").textContent =
+          stories.filter(story => story.status === "published").length;
+
+        document.getElementById("draftCount").textContent =
+          stories.filter(story => story.status !== "published").length;
+      } catch (error) {
+        console.warn("Could not load local ARIX records.", error);
+      }
+    }
+
+    updateDashboard();
+  </script>
+</body>
+</html>
