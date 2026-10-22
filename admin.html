@@ -667,3 +667,383 @@ input[type="file"] {
   }
 }
   </style>
+<script>
+(() => {
+  "use strict";
+
+  const STORAGE_KEY = "arix_admin_stories_v1";
+
+  const $ = id => document.getElementById(id);
+
+  const form = $("story-form");
+  const coverInput = $("story-cover");
+  const preview = $("cover-preview");
+
+  let stories = [];
+  let pendingCover = "";
+
+  try {
+    const saved = JSON.parse(
+      localStorage.getItem(STORAGE_KEY) || "[]"
+    );
+
+    stories = Array.isArray(saved) ? saved : [];
+  } catch (error) {
+    stories = [];
+  }
+
+  function saveStories() {
+    try {
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify(stories)
+      );
+      return true;
+    } catch (error) {
+      alert(
+        "Unable to save. Browser storage may be full. " +
+        "Try using a smaller cover image."
+      );
+      return false;
+    }
+  }
+
+  function escapeHTML(value) {
+    return String(value ?? "").replace(
+      /[&<>"']/g,
+      character => ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+      })[character]
+    );
+  }
+
+  function updateStats() {
+    $("stat-stories").textContent = stories.length;
+
+    $("stat-published").textContent =
+      stories.filter(
+        story => story.status === "Published"
+      ).length;
+
+    $("stat-ongoing").textContent =
+      stories.filter(
+        story => story.progress === "Ongoing"
+      ).length;
+  }
+
+  function renderStories() {
+    const list = $("story-list");
+
+    updateStats();
+
+    if (stories.length === 0) {
+      list.innerHTML =
+        '<div class="empty">' +
+        "No stories yet. Add your first story above." +
+        "</div>";
+      return;
+    }
+
+    list.innerHTML = stories.map(story => `
+      <article class="card story-card">
+
+        ${
+          story.cover
+            ? `<img class="story-cover"
+                    src="${story.cover}"
+                    alt="Story cover">`
+            : '<div class="story-cover"></div>'
+        }
+
+        <div class="story-body">
+
+          <h3>${escapeHTML(story.title)}</h3>
+
+          <p>
+            ${escapeHTML(story.author || "Unknown author")}
+            · ${escapeHTML(story.type)}
+          </p>
+
+          <div class="story-meta">
+            <span class="badge">
+              ${escapeHTML(story.status)}
+            </span>
+
+            <span class="badge">
+              ${escapeHTML(story.progress)}
+            </span>
+          </div>
+
+          <p>
+            ${escapeHTML(
+              story.description || "No description."
+            )}
+          </p>
+
+          <p>
+            Genre: ${escapeHTML(story.genre || "Not specified")}
+          </p>
+
+          <div class="actions">
+            <button
+              class="btn secondary"
+              data-edit="${escapeHTML(story.id)}"
+              type="button">
+              Edit
+            </button>
+
+            <button
+              class="btn danger"
+              data-delete="${escapeHTML(story.id)}"
+              type="button">
+              Delete
+            </button>
+          </div>
+
+        </div>
+      </article>
+    `).join("");
+  }
+
+  function resetForm() {
+    form.reset();
+
+    $("story-id").value = "";
+    $("form-title").textContent = "Add a Story";
+    $("save-button").textContent = "Save Story";
+
+    $("cancel-edit").style.display = "none";
+
+    pendingCover = "";
+
+    preview.src = "";
+    preview.style.display = "none";
+
+    coverInput.value = "";
+  }
+
+  function navigate(sectionName) {
+    document.querySelectorAll(".section").forEach(section => {
+      section.classList.toggle(
+        "active",
+        section.id === sectionName
+      );
+    });
+
+    document.querySelectorAll("[data-section]").forEach(button => {
+      button.classList.toggle(
+        "active",
+        button.dataset.section === sectionName
+      );
+    });
+
+    const titles = {
+      dashboard: "Dashboard",
+      stories: "Stories",
+      chapters: "Chapters",
+      media: "Media"
+    };
+
+    $("page-title").textContent =
+      titles[sectionName] || "Dashboard";
+  }
+
+  document.querySelectorAll("[data-section]").forEach(button => {
+    button.addEventListener("click", () => {
+      navigate(button.dataset.section);
+    });
+  });
+
+  document.querySelectorAll("[data-go]").forEach(button => {
+    button.addEventListener("click", () => {
+      navigate(button.dataset.go);
+    });
+  });
+
+  coverInput.addEventListener("change", () => {
+    const file = coverInput.files[0];
+
+    pendingCover = "";
+
+    if (!file) return;
+
+    if (![
+      "image/jpeg",
+      "image/png",
+      "image/webp"
+    ].includes(file.type)) {
+      alert("Choose a JPG, PNG, or WebP image.");
+      coverInput.value = "";
+      return;
+    }
+
+    if (file.size > 700 * 1024) {
+      alert("The cover image must be smaller than 700 KB.");
+      coverInput.value = "";
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      pendingCover = reader.result;
+
+      preview.src = pendingCover;
+      preview.style.display = "block";
+    };
+
+    reader.onerror = () => {
+      alert("Unable to read the image.");
+    };
+
+    reader.readAsDataURL(file);
+  });
+
+  form.addEventListener("submit", event => {
+    event.preventDefault();
+
+    const id = $("story-id").value;
+
+    const existing = stories.find(
+      story => story.id === id
+    );
+
+    const story = {
+      id: id || (
+        window.crypto?.randomUUID
+          ? crypto.randomUUID()
+          : String(Date.now())
+      ),
+
+      title: $("story-name").value.trim(),
+      author: $("story-author").value.trim(),
+      type: $("story-type").value,
+      genre: $("story-genre").value.trim(),
+      progress: $("story-progress").value,
+      status: $("story-status").value,
+
+      description:
+        $("story-description").value.trim(),
+
+      cover:
+        pendingCover ||
+        (existing ? existing.cover : "")
+    };
+
+    if (!story.title) {
+      alert("Enter a story title.");
+      return;
+    }
+
+    const previousStories = stories.slice();
+
+    if (existing) {
+      stories = stories.map(item =>
+        item.id === id ? story : item
+      );
+    } else {
+      stories.unshift(story);
+    }
+
+    if (!saveStories()) {
+      stories = previousStories;
+      return;
+    }
+
+    resetForm();
+    renderStories();
+
+    alert("Story saved in this browser.");
+  });
+
+  $("cancel-edit").addEventListener(
+    "click",
+    resetForm
+  );
+
+  $("story-list").addEventListener("click", event => {
+    const editButton = event.target.closest("[data-edit]");
+    const deleteButton = event.target.closest("[data-delete]");
+
+    if (editButton) {
+      const story = stories.find(
+        item => item.id === editButton.dataset.edit
+      );
+
+      if (!story) return;
+
+      $("story-id").value = story.id;
+      $("story-name").value = story.title;
+      $("story-author").value = story.author || "";
+      $("story-type").value = story.type;
+      $("story-genre").value = story.genre || "";
+      $("story-progress").value = story.progress;
+      $("story-status").value = story.status;
+
+      $("story-description").value =
+        story.description || "";
+
+      pendingCover = story.cover || "";
+
+      if (pendingCover) {
+        preview.src = pendingCover;
+        preview.style.display = "block";
+      } else {
+        preview.src = "";
+        preview.style.display = "none";
+      }
+
+      coverInput.value = "";
+
+      $("form-title").textContent = "Edit Story";
+      $("save-button").textContent = "Update Story";
+      $("cancel-edit").style.display = "inline-block";
+
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
+
+      return;
+    }
+
+    if (deleteButton) {
+      const story = stories.find(
+        item => item.id === deleteButton.dataset.delete
+      );
+
+      if (!story) return;
+
+      if (!confirm(
+        `Delete "${story.title}" from this browser?`
+      )) return;
+
+      const previousStories = stories.slice();
+
+      stories = stories.filter(
+        item => item.id !== story.id
+      );
+
+      if (saveStories()) {
+        if ($("story-id").value === story.id) {
+          resetForm();
+        }
+
+        renderStories();
+      } else {
+        stories = previousStories;
+      }
+    }
+  });
+
+  renderStories();
+
+})();
+</script>
+
+</body>
+</html>
