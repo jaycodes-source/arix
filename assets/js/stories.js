@@ -1,1 +1,107 @@
-
+/* ARIX STORY DATABASE */
+window.ARIX_STORIES = [
+  {
+    id: "moonlit-crown",
+    title: "The Moonlit Crown",
+    type: "Manga",
+    genre: "Fantasy",
+    chapter: 18,
+    rating: "9.4",
+    badge: "TRENDING",
+    rune: "月",
+    glow: "#9b87ff",
+    bg: "linear-gradient(145deg,#24234d,#111321 70%)",
+    description: "A quiet apprentice discovers that the lost crown of the moon has chosen them as its next keeper."
+  },
+  {
+    id: "last-star",
+    title: "The Last Star",
+    type: "Comic",
+    genre: "Sci-Fi",
+    chapter: 12,
+    rating: "9.1",
+    badge: "POPULAR",
+    rune: "✦",
+    glow: "#67dff2",
+    bg: "linear-gradient(145deg,#123a56,#111321 75%)",
+    description: "At the edge of a silent galaxy, one signal may be the key to humanity's future."
+  },
+  {
+    id: "ember-soul",
+    title: "Ember Soul",
+    type: "Manga",
+    genre: "Action",
+    chapter: 26,
+    rating: "9.6",
+    badge: "HOT",
+    rune: "炎",
+    glow: "#ff8a65",
+    bg: "linear-gradient(145deg,#54283a,#15121e 75%)",
+    description: "A young fighter carries an ancient flame that grows stronger with every challenge."
+  },
+  {
+    id: "garden-of-rain",
+    title: "Garden of Rain",
+    type: "Novel",
+    genre: "Romance",
+    chapter: 9,
+    rating: "8.9",
+    badge: "NEW",
+    rune: "❋",
+    glow: "#7ee0bd",
+    bg: "linear-gradient(145deg,#17433f,#111a24 75%)",
+    description: "Two strangers meet in a bookshop whenever the city is washed by rain."
+  },
+  {
+    id: "void-walker",
+    title: "Void Walker",
+    type: "Comic",
+    genre: "Adventure",
+    chapter: 21,
+    rating: "9.2",
+    badge: "EDITOR'S PICK",
+    rune: "⟡",
+    glow: "#b69bff",
+    bg: "linear-gradient(145deg,#342456,#10111d 75%)",
+    description: "A fearless traveller crosses strange dimensions in search of a missing home."
+  },
+  {
+    id: "paper-kingdom",
+    title: "Paper Kingdom",
+    type: "Novel",
+    genre: "Fantasy",
+    chapter: 14,
+    rating: "8.8",
+    badge: "FEATURED",
+    rune: "♜",
+    glow: "#f4c86b",
+    bg: "linear-gradient(145deg,#58472c,#15131c 75%)",
+    description: "A mapmaker learns that every kingdom she draws becomes real somewhere."
+  },
+  {
+    id: "neon-rivals",
+    title: "Neon Rivals",
+    type: "Manga",
+    genre: "Sports",
+    chapter: 31,
+    rating: "9.0",
+    badge: "POPULAR",
+    rune: "↗",
+    glow: "#ff76b7",
+    bg: "linear-gradient(145deg,#552447,#11121d 75%)",
+    description: "Two rival teams fight for the championship and discover a new meaning of trust."
+  },
+  {
+    id: "deep-blue",
+    title: "Deep Blue Signal",
+    type: "Comic",
+    genre: "Mystery",
+    chapter: 7,
+    rating: "8.7",
+    badge: "NEW",
+    rune: "≈",
+    glow: "#69b8ff",
+    bg: "linear-gradient(145deg,#1d3b63,#10131e 75%)",
+    description: "A mysterious transmission from beneath the ocean pulls a student into a secret."
+  }
+];
