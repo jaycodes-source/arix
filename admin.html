@@ -218,3 +218,272 @@ h2 {
     grid-template-columns: 1fr;
   }
 }
+  </style>
+</head>
+
+<body>
+
+<div class="layout">
+
+  <aside>
+    <div class="brand">ARIX</div>
+    <div class="subtitle">ADMIN PORTAL</div>
+
+    <nav>
+      <button class="nav-btn active" data-section="dashboard">
+        Dashboard
+      </button>
+
+      <button class="nav-btn" data-section="stories">
+        Stories
+      </button>
+
+      <button class="nav-btn" data-section="chapters">
+        Chapters
+      </button>
+
+      <button class="nav-btn" data-section="media">
+        Media
+      </button>
+    </nav>
+
+    <p class="muted" style="font-size:12px;margin:25px 10px;">
+      Local Demo Version
+    </p>
+  </aside>
+
+  <main>
+
+    <div class="topbar">
+      <div>
+        <h1 id="page-title">Dashboard</h1>
+        <p class="muted">Manage your ARIX reading library.</p>
+      </div>
+
+      <span class="badge">
+        MIDNIGHT PREMIUM × CYBER ANIME
+      </span>
+    </div>
+
+    <div class="notice">
+      <strong>Important:</strong>
+      Stories are saved in this browser on this device.
+      This version does not publish stories to your public
+      ARIX website.
+    </div>
+
+    <!-- DASHBOARD -->
+
+    <section id="dashboard" class="section active">
+
+      <div class="grid">
+
+        <div class="card">
+          <div class="muted">Total Stories</div>
+          <div class="stat" id="stat-stories">0</div>
+        </div>
+
+        <div class="card">
+          <div class="muted">Published Labels</div>
+          <div class="stat" id="stat-published">0</div>
+        </div>
+
+        <div class="card">
+          <div class="muted">Ongoing Stories</div>
+          <div class="stat" id="stat-ongoing">0</div>
+        </div>
+
+      </div>
+
+      <div class="card">
+        <h2>Welcome to ARIX Admin</h2>
+
+        <p class="muted">
+          Manage your comics, manga, and novels from one place.
+        </p>
+
+        <button class="btn" data-go="stories">
+          + Add New Story
+        </button>
+      </div>
+
+    </section>
+
+    <!-- STORIES -->
+
+    <section id="stories" class="section">
+
+      <div class="card">
+
+        <h2 id="form-title">Add a Story</h2>
+
+        <form id="story-form">
+
+          <input type="hidden" id="story-id">
+
+          <div class="field">
+            <label for="story-name">Story Title *</label>
+
+            <input
+              id="story-name"
+              type="text"
+              maxlength="100"
+              placeholder="Enter story title"
+              required
+            >
+          </div>
+
+          <div class="field">
+            <label for="story-author">Author</label>
+
+            <input
+              id="story-author"
+              type="text"
+              maxlength="80"
+              placeholder="Enter author name"
+            >
+          </div>
+
+          <div class="field">
+            <label for="story-type">Story Format</label>
+
+            <select id="story-type">
+              <option>Comic</option>
+              <option>Manga</option>
+              <option>Manhwa</option>
+              <option>Manhua</option>
+              <option>Novel</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="story-genre">Genre</label>
+
+            <input
+              id="story-genre"
+              type="text"
+              maxlength="80"
+              placeholder="Action, romance, fantasy..."
+            >
+          </div>
+
+          <div class="field">
+            <label for="story-progress">Story Progress</label>
+
+            <select id="story-progress">
+              <option>Ongoing</option>
+              <option>Completed</option>
+              <option>Coming Soon</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="story-status">Listing Status</label>
+
+            <select id="story-status">
+              <option value="Draft">Draft</option>
+              <option value="Published">Published</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="story-description">Story Description</label>
+
+            <textarea
+              id="story-description"
+              maxlength="1200"
+              placeholder="Write a short description..."
+            ></textarea>
+          </div>
+
+          <div class="field">
+            <label for="story-cover">Cover Image</label>
+
+            <input
+              id="story-cover"
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+            >
+
+            <p class="muted" style="font-size:12px;">
+              JPG, PNG, or WebP. Maximum size: 700 KB.
+            </p>
+
+            <img
+              id="cover-preview"
+              alt="Story cover preview"
+              style="display:none;max-width:150px;max-height:190px;object-fit:cover;border-radius:10px;"
+            >
+          </div>
+
+          <div class="actions">
+
+            <button class="btn" type="submit" id="save-button">
+              Save Story
+            </button>
+
+            <button
+              class="btn secondary"
+              type="button"
+              id="cancel-edit"
+              style="display:none;"
+            >
+              Cancel Edit
+            </button>
+
+            <button class="btn secondary" type="reset">
+              Clear Form
+            </button>
+
+          </div>
+
+        </form>
+
+      </div>
+
+      <h2>Your Stories</h2>
+
+      <div id="story-list"></div>
+
+    </section>
+
+    <!-- CHAPTERS -->
+
+    <section id="chapters" class="section">
+
+      <div class="card">
+        <h2>Chapter Manager</h2>
+
+        <p class="muted">
+          Chapter uploading will be added in a later version.
+        </p>
+
+        <button class="btn" data-go="stories">
+          Manage Stories
+        </button>
+      </div>
+
+    </section>
+
+    <!-- MEDIA -->
+
+    <section id="media" class="section">
+
+      <div class="card">
+        <h2>Media Library</h2>
+
+        <p class="muted">
+          Story covers are managed through the Stories section.
+          A shared media library requires a connected backend.
+        </p>
+
+        <button class="btn" data-go="stories">
+          Manage Covers
+        </button>
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
